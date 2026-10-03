@@ -5,8 +5,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TestController {
+    @Autowired
+    TestService testService;
+
     @GetMapping("/test")
-    public String test() {
-        return "Hello, world!";
+    public List<Member> getAllMembers() {
+        List<Member> members = testService.getAllMembers();
+        return members;
     }
 }

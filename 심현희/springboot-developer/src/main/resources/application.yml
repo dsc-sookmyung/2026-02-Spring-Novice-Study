@@ -1,0 +1,11 @@
+spring:
+  jpa:
+    #전송 쿼리 확인
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    #show-sql, format-sql옵션 : 애플리케이션 실행 과정 중 DB에 쿼리할 일 있는 경우 실행 구문 모두 보여줌
+
+    #애플리케이션 실행 시 테이블 생성 후 data.sql에 있는 쿼리 실행
+    defer-datasource-initialization: true

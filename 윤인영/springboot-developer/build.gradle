@@ -21,6 +21,7 @@ dependencies {
     runtimeOnly 'com.h2database:h2'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.mockito:mockito-subclass:5.11.0'
 }
 
 test {

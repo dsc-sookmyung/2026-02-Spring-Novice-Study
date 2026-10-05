@@ -45,6 +45,16 @@ class MemberRepositoryTest {
 
     @Sql("/insert-members.sql")
     @Test
+    void update(){
+        //given
+        Member member = memberRepository.findById(2L).get();
+        //when
+        member.changeName("BC");
+        //then
+        assertThat(memberRepository.findById(2L).get().getName()).isEqualTo("BC");
+    }
+    @Sql("/insert-members.sql")
+    @Test
     void getAllMembers() {
         // when
         Member member = memberRepository.findByName("C").get();

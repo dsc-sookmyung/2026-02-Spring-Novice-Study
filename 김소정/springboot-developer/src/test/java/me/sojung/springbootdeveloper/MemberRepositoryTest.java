@@ -19,9 +19,9 @@ class MemberRepositoryTest {
     @Test
     void getAllMembers() {
         // when
-        List<Member> members = memberRepository.findAll();
+        Member member = memberRepository.findByName("C").get();
 
         // then
-        assertThat(members.size()).isEqualTo(3);
+        assertThat(member.getId()).isEqualTo(3);
     }
 }

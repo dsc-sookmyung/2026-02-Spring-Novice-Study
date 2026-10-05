@@ -1,10 +1,12 @@
 package me.sojung.springbootdeveloper;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Entity
 public class Member {

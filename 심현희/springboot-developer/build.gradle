@@ -23,6 +23,7 @@ dependencies {
     runtimeOnly 'com.h2database:h2' // 인메모리 데이터베이스 H2
     compileOnly 'org.projectlombok:lombok' // 롬복
     annotationProcessor 'org.projectlombok:lombok'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
 test {

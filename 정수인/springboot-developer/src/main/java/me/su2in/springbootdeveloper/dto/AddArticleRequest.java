@@ -1,4 +1,4 @@
-package me.su2in.dto;
+package me.su2in.springbootdeveloper.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

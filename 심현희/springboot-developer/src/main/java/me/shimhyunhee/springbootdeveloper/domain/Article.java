@@ -28,6 +28,11 @@ public class Article {
         this.content = content;
     }
 
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
     // @Getter, @NoArgsConstructor 애너테이션으로 대치
 //    protected Article() { // 기본 생성자
 //    }

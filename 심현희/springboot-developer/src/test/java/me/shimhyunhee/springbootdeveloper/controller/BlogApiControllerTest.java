@@ -20,7 +20,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -154,7 +154,7 @@ class BlogApiControllerTest {
     // 블로그 글 수정 API 테스트 코드
     @DisplayName("updateArticle: 블로그 글 수정에 성공한다.")
     @Test
-    public void updaeArticle() throws Exception {
+    public void updateArticle() throws Exception {
         //given
         final String url = "/api/articles/{id}";
         final String title = "title";

@@ -1,4 +1,4 @@
-package me.su2in.domain;
+package me.su2in.springbootdeveloper.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -31,4 +31,9 @@ public class BlogService {
                 .orElseThrow(() -> new IllegalArgumentException("not found: " + id));
                 // 없을 경우 IllegalArgumentException 예외 발생
     }
+
+    // 블로그 글의 ID를 받은 뒤 데이터베이스에서 데이터를 삭제하는 메서드
+    public void delete(long id) {
+        blogRepository.deleteById(id);
+    }
 }

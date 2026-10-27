@@ -44,10 +44,19 @@ public class BlogApiController {
     // 블로그 글 조회 컨트롤러 메서드
     @GetMapping("/api/articles/{id}")
     // URL 경로에서 값 추출
-    public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id) {
+    public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id) { // {id}에 해당하는 값이 @PathVariable 애너테이션을 통해 들어옴
         Article article = blogService.findById(id);
 
         return ResponseEntity.ok()
                 .body(new ArticleResponse(article));
+    }
+
+    // 블로그 글 삭제 컨트롤러 메서드
+    @DeleteMapping("/api/articles/{id}")
+    public ResponseEntity<Void> deleteArticle(@PathVariable long id) {
+        blogService.delete(id);
+
+        return ResponseEntity.ok()
+                .build();
     }
 }

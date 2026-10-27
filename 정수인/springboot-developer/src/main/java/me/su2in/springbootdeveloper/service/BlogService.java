@@ -27,4 +27,12 @@ public class BlogService {
         return blogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
     }
+
+    // 블로그 글 삭제 메서드 (194쪽)
+    public void delete(long id) {
+        Article article = blogRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+
+        blogRepository.delete(article);
+    }
 }

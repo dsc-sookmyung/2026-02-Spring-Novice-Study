@@ -7,10 +7,7 @@ import me.shimhyunhee.springbootdeveloper.dto.ArticleResponse;
 import me.shimhyunhee.springbootdeveloper.service.BlogService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,8 +17,9 @@ public class BlogApiController {
 
     private final BlogService blogService;
 
+    // 블로그 글 추가 컨트롤러 메서드
     // HTTP 메서드가 POST일 때 전달받은 URL과 동일한 메서드로 매핑
-    @PostMapping("/api/articles") // /api/articleds는 addArticle() 메서서드에 매핑
+    @PostMapping("/api/articles") // /api/articles는 addArticle() 메서드에 매핑
     // @RequestBody로 요청 본문 값 매핑
     public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request) {
         Article savedArticle = blogService.save(request);
@@ -30,7 +28,8 @@ public class BlogApiController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(savedArticle);
     }
-
+    
+    // 블로그 글 목록 조회 컨트롤러 메서드
     @GetMapping("/api/articles")
     public ResponseEntity<List<ArticleResponse>> findAllArticles() {
         List<ArticleResponse> articles = blogService.findAll()
@@ -40,5 +39,15 @@ public class BlogApiController {
 
         return ResponseEntity.ok()
                 .body(articles);
+    }
+
+    // 블로그 글 조회 컨트롤러 메서드
+    @GetMapping("/api/articles/{id}")
+    // URL 경로에서 값 추출
+    public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id) {
+        Article article = blogService.findById(id);
+
+        return ResponseEntity.ok()
+                .body(new ArticleResponse(article));
     }
 }

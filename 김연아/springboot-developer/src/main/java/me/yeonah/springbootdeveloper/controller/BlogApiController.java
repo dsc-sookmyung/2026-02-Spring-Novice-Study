@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.yeonah.springbootdeveloper.domain.Article;
 import me.yeonah.springbootdeveloper.dto.AddArticleRequest;
 import me.yeonah.springbootdeveloper.dto.ArticleResponse;
+import me.yeonah.springbootdeveloper.dto.UpdateArticleRequest;
 import me.yeonah.springbootdeveloper.service.BlogService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,6 +54,15 @@ public class BlogApiController {
 
         return ResponseEntity.ok()
                 .build();
+    }
+
+    @PutMapping("/api/articles/{id}")
+    public ResponseEntity<Article> updateArticle(@PathVariable long id,
+                                                 @RequestBody UpdateArticleRequest request) {
+        Article updateArticle=blogService.update(id, request);
+
+        return ResponseEntity.ok()
+                .body(updateArticle);
     }
 
 }

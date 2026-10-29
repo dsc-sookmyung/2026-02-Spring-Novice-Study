@@ -1,3 +1,3 @@
-INSERT INTO member (name) VALUES ('name 1');
-INSERT INTO member (name) VALUES ('name 2');
-INSERT INTO member (name) VALUES ('name 3');
+INSERT INTO member (id, name) VALUES (1, 'A');
+INSERT INTO member (id, name) VALUES (2, 'B');
+INSERT INTO member (id, name) VALUES (3, 'C');

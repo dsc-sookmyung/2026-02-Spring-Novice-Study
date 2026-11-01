@@ -64,7 +64,7 @@ public class WebSecurityConfig {
         authProvider.setPasswordEncoder(bCryptPasswordEncoder);
         return new ProviderManager(authProvider);
     }
-    //패스워드 인코더로 사용할 빈 등록 
+    //패스워드 인코더로 사용할 빈 등록
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();

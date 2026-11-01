@@ -19,6 +19,6 @@ public class ArticleViewResponse {
         this.id = article.getId();
         this.title = article.getTitle();
         this.content = article.getContent();
-        this.createdAt = article.getCreatedAt();();
+        this.createdAt = article.getCreatedAt();
     }
 }

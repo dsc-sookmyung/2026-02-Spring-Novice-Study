@@ -1,7 +1,9 @@
+
 package me.su2in.springbootdeveloper.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.su2in.springbootdeveloper.domain.Article;
+import me.su2in.springbootdeveloper.dto.AddArticleRequest;
 import me.su2in.springbootdeveloper.dto.UpdateArticleRequest;
 import me.su2in.springbootdeveloper.repository.BlogRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,6 +21,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -39,6 +42,33 @@ class BlogApiControllerTest {
     @BeforeEach
     public void setUp() {
         blogRepository.deleteAll();
+    }
+
+    // 게시글 추가 후 데이터베이스에 정상적으로 저장되었는지 확인
+    @DisplayName("addArticle: 블로그 글 추가에 성공한다.")
+    @Test
+    public void addArticle() throws Exception {
+        // given
+        final String url = "/api/articles";
+        final String title = "title";
+        final String content = "content";
+
+        final AddArticleRequest request =
+                new AddArticleRequest(title, content);
+
+        // when
+        final ResultActions result = mockMvc.perform(post(url)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(objectMapper.writeValueAsString(request)));
+
+        // then
+        result.andExpect(status().isCreated());
+
+        List<Article> articles = blogRepository.findAll();
+
+        assertThat(articles).hasSize(1);
+        assertThat(articles.get(0).getTitle()).isEqualTo(title);
+        assertThat(articles.get(0).getContent()).isEqualTo(content);
     }
 
     // 저장된 모든 블로그 글이 조회되는지 확인

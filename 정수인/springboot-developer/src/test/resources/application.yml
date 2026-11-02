@@ -2,3 +2,7 @@ spring:
   sql:
     init:
       mode: never
+
+jwt:
+  issuer: study@example.com
+  secret-key: study-springboot

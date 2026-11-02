@@ -24,6 +24,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'  // 롬복
     annotationProcessor 'org.projectlombok:lombok'
     testRuntimeOnly 'com.h2database:h2'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 }
 
 test {

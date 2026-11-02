@@ -18,6 +18,9 @@
     <div class="row">
         <div class="col-lg-8">
             <article>
+                <!-- 현재 게시글 ID 저장 -->
+                <input type="hidden" id="article-id" th:value="${article.id}">
+
                 <header class="mb-4">
                     <h1 class="fw-bolder mb-1"
                         th:text="${article.title}"></h1>
@@ -33,11 +36,17 @@
                 </section>
 
                 <button type="button" class="btn btn-primary btn-sm">수정</button>
-                <button type="button" class="btn btn-secondary btn-sm">삭제</button>
+
+                <!--삭제 버튼에 id 추가 -->
+                <button type="button" id="delete-btn"
+                        class="btn btn-secondary btn-sm">삭제</button>
             </article>
         </div>
     </div>
 </div>
+
+<!--자바스크립트 파일 연결 -->
+<script src="/js/article.js"></script>
 
 </body>
 </html>

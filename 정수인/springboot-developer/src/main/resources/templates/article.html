@@ -35,9 +35,12 @@
                        th:text="${article.content}"></p>
                 </section>
 
-                <button type="button" class="btn btn-primary btn-sm">수정</button>
+                <!-- 수정 버튼: 수정 화면으로 이동 -->
+                <button type="button" id="modify-btn"
+                        th:onclick="|location.href='@{/new-article(id=${article.id})}'|"
+                        class="btn btn-primary btn-sm">수정</button>
 
-                <!--삭제 버튼에 id 추가 -->
+                <!-- 삭제 버튼 -->
                 <button type="button" id="delete-btn"
                         class="btn btn-secondary btn-sm">삭제</button>
             </article>
@@ -45,7 +48,7 @@
     </div>
 </div>
 
-<!--자바스크립트 파일 연결 -->
+<!-- 자바스크립트 파일 연결 -->
 <script src="/js/article.js"></script>
 
 </body>

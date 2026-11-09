@@ -1,6 +1,7 @@
 package me.su2in.springbootdeveloper.config;
 
 import lombok.RequiredArgsConstructor;
+import me.su2in.springbootdeveloper.service.OAuth2UserCustomService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,6 +12,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class WebSecurityConfig {
 
+    private final OAuth2UserCustomService oAuth2UserCustomService;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
@@ -20,6 +23,13 @@ public class WebSecurityConfig {
                 )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
+                        .defaultSuccessUrl("/articles")
+                )
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/login")
+                        .userInfoEndpoint(userInfo -> userInfo
+                                .userService(oAuth2UserCustomService)
+                        )
                         .defaultSuccessUrl("/articles")
                 )
                 .logout(logout -> logout

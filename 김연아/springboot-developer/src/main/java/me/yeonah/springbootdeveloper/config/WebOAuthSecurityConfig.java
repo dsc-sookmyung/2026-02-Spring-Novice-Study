@@ -2,8 +2,8 @@ package me.yeonah.springbootdeveloper.config;
 
 import lombok.RequiredArgsConstructor;
 import me.yeonah.springbootdeveloper.config.jwt.TokenProvider;
-//import me.yeonah.springbootdeveloper.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
-//import me.yeonah.springbootdeveloper.config.oauth.OAuth2SuccessHandler;
+import me.yeonah.springbootdeveloper.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
+import me.yeonah.springbootdeveloper.config.oauth.OAuth2SuccessHandler;
 import me.yeonah.springbootdeveloper.config.oauth.OAuth2UserCustomService;
 import me.yeonah.springbootdeveloper.repository.RefreshTokenRepository;
 import me.yeonah.springbootdeveloper.service.UserService;

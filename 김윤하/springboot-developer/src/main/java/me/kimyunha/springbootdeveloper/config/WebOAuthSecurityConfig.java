@@ -2,6 +2,8 @@ package me.kimyunha.springbootdeveloper.config;
 
 import lombok.RequiredArgsConstructor;
 import me.kimyunha.springbootdeveloper.config.jwt.TokenProvider;
+import me.kimyunha.springbootdeveloper.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
+import me.kimyunha.springbootdeveloper.config.oauth.OAuth2SuccessHandler;
 import me.kimyunha.springbootdeveloper.config.oauth.OAuth2UserCustomService;
 import me.kimyunha.springbootdeveloper.repository.RefreshTokenRepository;
 import me.kimyunha.springbootdeveloper.service.UserService;

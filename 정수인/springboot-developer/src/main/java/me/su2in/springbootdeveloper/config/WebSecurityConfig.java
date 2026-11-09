@@ -13,13 +13,18 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
 
     private final OAuth2UserCustomService oAuth2UserCustomService;
+    private final OAuth2AuthorizationRequestBasedOnCookieRepository authorizationRequestRepository;
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/signup", "/user").permitAll()
+                        .requestMatchers("/login", "/signup", "/user", "/h2-console/**").permitAll()
                         .anyRequest().authenticated()
+                )
+                .headers(headers -> headers
+                        .frameOptions(frameOptions -> frameOptions.sameOrigin())
                 )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
@@ -27,10 +32,13 @@ public class WebSecurityConfig {
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/login")
+                        .authorizationEndpoint(authorization -> authorization
+                                .authorizationRequestRepository(authorizationRequestRepository)
+                        )
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(oAuth2UserCustomService)
                         )
-                        .defaultSuccessUrl("/articles")
+                        .successHandler(oAuth2SuccessHandler)
                 )
                 .logout(logout -> logout
                         .logoutSuccessUrl("/login")

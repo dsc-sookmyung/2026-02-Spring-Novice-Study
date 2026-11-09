@@ -101,7 +101,7 @@ function httpRequest(method, url, body, success, fail) {
             fetch("/api/token", {
                 method: "POST",
                 headers: {
-                    Authorization: "Bearer " + localStorage.getItem("access_toekn"),
+                    Authorization: "Bearer " + localStorage.getItem("access_token"),
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({

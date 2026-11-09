@@ -1,4 +1,3 @@
-
 const deleteButton = document.getElementById('delete-btn');
 
 if (deleteButton) {
@@ -42,7 +41,6 @@ if (modifyButton) {
     });
 }
 
-
 // 게시글 등록 기능
 const createButton = document.getElementById('create-btn');
 
@@ -61,6 +59,20 @@ if (createButton) {
             .then(() => {
                 alert('등록 완료되었습니다.');
                 location.replace('/articles');
+            });
+    });
+}
+
+// 로그아웃 기능
+const logoutButton = document.getElementById('logout-btn');
+
+if (logoutButton) {
+    logoutButton.addEventListener('click', event => {
+        fetch('/logout', {
+            method: 'GET'
+        })
+            .then(() => {
+                location.replace('/login');
             });
     });
 }

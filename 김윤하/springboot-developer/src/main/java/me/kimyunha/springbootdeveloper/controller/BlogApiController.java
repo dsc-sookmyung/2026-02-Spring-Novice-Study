@@ -6,11 +6,11 @@ import me.kimyunha.springbootdeveloper.dto.AddArticleRequest;
 import me.kimyunha.springbootdeveloper.dto.ArticleResponse;
 import me.kimyunha.springbootdeveloper.dto.UpdateArticleRequest;
 import me.kimyunha.springbootdeveloper.service.BlogService;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -21,12 +21,13 @@ public class BlogApiController {
 
     @PostMapping("/api/articles")
 
-    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request) {
-        Article savedArticle = blogService.save(request);
+    public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request, Principal principal) {
+        Article savedArticle = blogService.save(request, principal.getName());
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(savedArticle);
     }
+
     @GetMapping("/api/articles")
     public ResponseEntity<List<ArticleResponse>> findAllArticles() {
         List<ArticleResponse> articles = blogService.findAll()

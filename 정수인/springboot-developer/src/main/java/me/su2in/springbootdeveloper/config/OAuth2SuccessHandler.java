@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -51,6 +52,11 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
         authorizationRequestRepository.removeAuthorizationRequestCookies(request, response);
 
-        getRedirectStrategy().sendRedirect(request, response, "/articles");
+        String targetUrl = UriComponentsBuilder.fromPath("/articles")
+                .queryParam("token", accessToken)
+                .build()
+                .toUriString();
+
+        getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
 }

@@ -28,6 +28,9 @@ public class Article {
     @Column(name = "content", nullable = false)
     private String content;
 
+    @Column(name = "author", nullable = false)
+    private String author;
+
     @CreatedDate
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -37,8 +40,9 @@ public class Article {
     private LocalDateTime updatedAt;
 
     @Builder // 빌더 패턴으로 객체 생성
-    public Article(String title, String content) {
+    public Article(String title, String author, String content) {
         this.title = title;
+        this.author= author;
         this.content = content;
     }
     public void update(String title, String content) {

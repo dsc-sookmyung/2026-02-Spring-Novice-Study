@@ -22,9 +22,9 @@ public class TokenProvider {
 
     private final JwtProperties jwtProperties;
 
-    public String generateToken(User user, Duration expriredAt) {
+    public String generateToken(User user, Duration expiredAt) {
         Date now = new Date();
-        return makeToken(new Date(now.getTime() + expriredAt.toMillis()), user);
+        return makeToken(new Date(now.getTime() + expiredAt.toMillis()), user);
     }
 
     // 1. JWT 토큰 생성 메서드
@@ -40,7 +40,7 @@ public class TokenProvider {
                 .setSubject(user.getEmail()) // 내용 sub : 유저의 이메일
                 .claim("id", user.getId()) // 클레임 id : 유저 ID
                 // 서명 : 비밀값과 함께 해시값을 HS256 방식으로 암호화
-                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecertKey())
+                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
                 .compact();
     }
 
@@ -48,7 +48,7 @@ public class TokenProvider {
     public boolean validToken(String token) {
         try{
             Jwts.parser()
-                    .setSigningKey(jwtProperties.getSecertKey()) // 비밀값으로 복호화
+                    .setSigningKey(jwtProperties.getSecretKey()) // 비밀값으로 복호화
                     .parseClaimsJws(token);
 
             return true;
@@ -73,7 +73,7 @@ public class TokenProvider {
 
     private Claims getClaims(String token) {
         return Jwts.parser() // 클레임 조회
-                .setSigningKey(jwtProperties.getSecertKey())
+                .setSigningKey(jwtProperties.getSecretKey())
                 .parseClaimsJws(token)
                 .getBody();
     }

@@ -6,5 +6,5 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class CreateAccessTokenResponse {
-    private String accessToekn;
+    private String accessToken;
 }

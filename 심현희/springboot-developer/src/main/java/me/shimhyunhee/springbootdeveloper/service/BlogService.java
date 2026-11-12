@@ -6,6 +6,8 @@ import me.shimhyunhee.springbootdeveloper.domain.Article;
 import me.shimhyunhee.springbootdeveloper.dto.AddArticleRequest;
 import me.shimhyunhee.springbootdeveloper.dto.UpdateArticleRequest;
 import me.shimhyunhee.springbootdeveloper.repository.BlogRepository;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +20,7 @@ public class BlogService {
 
     // 블로그 글 추가 메서드
     public Article save(AddArticleRequest request, String userName) {
+
         return  blogRepository.save(request.toEntity(userName));
     }
 
@@ -36,7 +39,11 @@ public class BlogService {
 
     // 블로그 글의 ID를 받은 뒤 데이터베이스에서 데이터를 삭제하는 메서드
     public void delete(long id) {
-        blogRepository.deleteById(id);
+        Article article = blogRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+
+        authorizeArticleAuthor(article);
+        blogRepository.delete(article);
     }
 
     // 리포지토리를 사용해 글을 수정하는 메서드
@@ -45,8 +52,17 @@ public class BlogService {
         Article article = blogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("not found: " + id));
 
+        authorizeArticleAuthor(article);
         article.update(request.getTitle(), request.getContent());
 
         return article;
+    }
+
+    // 게시글을 작성한 유저인지 확인
+    private static void authorizeArticleAuthor(Article article) {
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (!article.getAuthor().equals(userName)) {
+            throw new IllegalArgumentException("not authorized");
+        }
     }
 }

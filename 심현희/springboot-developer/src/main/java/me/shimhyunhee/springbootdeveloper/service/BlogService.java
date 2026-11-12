@@ -17,8 +17,8 @@ public class BlogService {
     private final BlogRepository blogRepository;
 
     // 블로그 글 추가 메서드
-    public Article save(AddArticleRequest request) {
-        return  blogRepository.save(request.toEntity());
+    public Article save(AddArticleRequest request, String userName) {
+        return  blogRepository.save(request.toEntity(userName));
     }
 
     // 데이터베이스에 저장되어 있는 글을 모두 가져오는 메서드

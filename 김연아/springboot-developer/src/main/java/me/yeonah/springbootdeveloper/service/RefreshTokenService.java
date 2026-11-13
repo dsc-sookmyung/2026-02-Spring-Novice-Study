@@ -3,6 +3,7 @@ package me.yeonah.springbootdeveloper.service;
 import lombok.RequiredArgsConstructor;
 import me.yeonah.springbootdeveloper.domain.RefreshToken;
 import me.yeonah.springbootdeveloper.repository.RefreshTokenRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor

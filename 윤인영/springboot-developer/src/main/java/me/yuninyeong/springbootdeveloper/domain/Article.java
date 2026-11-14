@@ -28,12 +28,6 @@ public class Article {
     @Column(name = "content", nullable = false)
     private String content;
 
-    @Builder // 빌더 패턴으로 객체 생성
-    public Article(String title, String content) {
-        this.title = title;
-        this.content = content;
-    }
-
     public void update(String title, String content) {
         this.title = title;
         this.content = content;
@@ -46,4 +40,14 @@ public class Article {
     @LastModifiedDate // 엔티티가 수정될 때 수정 시간 저장
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @Column(name = "author", nullable = false)
+    private String author;
+
+    @Builder
+    public Article(String author, String title, String content) {
+        this.author = author;
+        this.title = title;
+        this.content = content;
+    }
 }

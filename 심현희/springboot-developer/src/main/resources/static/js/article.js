@@ -129,4 +129,23 @@ function httpRequest(method, url, body, success, fail) {
             return fail();
         }
     });
+
+    // 로그아웃 기능
+    const logoutButton = document.getElementById('logout-btn');
+
+    if (logoutButton) {
+        logoutButton.addEventListener('click', event => {
+            function success() {
+                // 로컬 스토리지에 저장된 엑세스 토큰을 삭제
+                localStorage.removeItem('access_token');
+                location.replace('/login');
+            }
+
+            function fail() {
+                alert('로그아웃 실패했습니다.');
+            }
+
+            httpRequest('DELETE', '/api/refresh-token', null, success, fail);
+        })
+    }
 }

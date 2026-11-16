@@ -77,9 +77,6 @@ if (logoutButton) {
         function success() {
             // 로컬 스토리지에 저장된 액세스 토큰을 삭제
             localStorage.removeItem('access_token');
-
-            // 쿠키에 저장된 리프레시 토큰을 삭제
-            deleteCookie('refresh_token');
             location.replace('/login');
         }
         function fail() {
@@ -126,7 +123,7 @@ function httpRequest(method, url, body, success, fail) {
         },
         body: body,
     }).then(response => {
-        if (response.status === 200 || response.status === 201) {
+        if (response.ok) {
             return success();
         }
         const refresh_token = getCookie('refresh_token');

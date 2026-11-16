@@ -1,5 +1,6 @@
 package org.example.config.oauth;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.util.CookieUtil;
@@ -20,11 +21,17 @@ public class OAuth2AuthorizationRequestBasedOnCookieRepository
     public OAuth2AuthorizationRequest loadAuthorizationRequest(
             HttpServletRequest request) {
 
+        Cookie cookie = WebUtils.getCookie(
+                request,
+                OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME
+        );
+
+        if (cookie == null) {
+            return null;
+        }
+
         return CookieUtil.deserialize(
-                WebUtils.getCookie(
-                        request,
-                        OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME
-                ),
+                cookie,
                 OAuth2AuthorizationRequest.class
         );
     }

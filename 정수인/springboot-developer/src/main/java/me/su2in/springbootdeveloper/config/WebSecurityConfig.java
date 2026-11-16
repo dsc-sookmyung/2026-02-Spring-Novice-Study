@@ -1,3 +1,4 @@
+
 package me.su2in.springbootdeveloper.config;
 
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ public class WebSecurityConfig {
     private final OAuth2AuthorizationRequestBasedOnCookieRepository authorizationRequestRepository;
     private final OAuth2SuccessHandler oAuth2SuccessHandler;
     private final TokenProvider tokenProvider;
+    private final CustomLogoutHandler customLogoutHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -44,6 +46,7 @@ public class WebSecurityConfig {
                         .successHandler(oAuth2SuccessHandler)
                 )
                 .logout(logout -> logout
+                        .addLogoutHandler(customLogoutHandler)
                         .logoutSuccessUrl("/login")
                         .invalidateHttpSession(true)
                 )

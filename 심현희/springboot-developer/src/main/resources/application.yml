@@ -1,22 +1,38 @@
+#spring:
+#  jpa:
+#    #전송 쿼리 확인
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
+#    #show-sql, format-sql옵션 : 애플리케이션 실행 과정 중 DB에 쿼리할 일 있는 경우 실행 구문 모두 보여줌
+#
+#    #애플리케이션 실행 시 테이블 생성 후 data.sql에 있는 쿼리 실행
+#    defer-datasource-initialization: true
+#
+#
+#  datasource: # 데이터베이스 정보 추가
+#    url: jdbc:h2:mem:testdb
+#    username: sa
+#  h2: # H2 콘솔 활성화
+#    console:
+#      enabled: true
+
 spring:
   jpa:
-    #전송 쿼리 확인
+    hibernate:
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-    #show-sql, format-sql옵션 : 애플리케이션 실행 과정 중 DB에 쿼리할 일 있는 경우 실행 구문 모두 보여줌
-
-    #애플리케이션 실행 시 테이블 생성 후 data.sql에 있는 쿼리 실행
     defer-datasource-initialization: true
 
-
-  datasource: # 데이터베이스 정보 추가
-    url: jdbc:h2:mem:testdb
-    username: sa
-  h2: # H2 콘솔 활성화
-    console:
-      enabled: true
+  datasource:
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   security :
     oauth2:

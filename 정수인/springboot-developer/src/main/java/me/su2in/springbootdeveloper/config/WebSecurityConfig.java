@@ -25,7 +25,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/signup", "/user", "/h2-console/**", "/api/token").permitAll()
+                        .requestMatchers("/", "/memo", "/login", "/signup", "/user", "/h2-console/**", "/api/token").permitAll()
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers

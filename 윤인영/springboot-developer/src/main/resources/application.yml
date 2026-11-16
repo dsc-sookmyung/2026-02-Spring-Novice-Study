@@ -1,30 +1,26 @@
 spring:
-  datasource:
-    url: jdbc:h2:mem:testdb
-    username: sa
-
-  h2:
-    console:
-      enabled: true
-
   jpa:
+    hibernate:
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
     defer-datasource-initialization: true
 
+  datasource:
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
   security:
     oauth2:
       client:
         registration:
           google:
-            client-id:
-            client-secret:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
             scope:
               - email
               - profile
-
-jwt:
-  issuer: ajufresh@gmail.com
-  secret_key: study-springboot

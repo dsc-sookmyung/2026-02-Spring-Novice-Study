@@ -92,7 +92,9 @@ public class WebOAuthSecurityConfig {
                                 new AntPathRequestMatcher("/api/**")
                         )
                 )
-
+                .headers(headers -> headers
+                        .frameOptions(frame -> frame.sameOrigin())
+                )
                 .build();
     }
 

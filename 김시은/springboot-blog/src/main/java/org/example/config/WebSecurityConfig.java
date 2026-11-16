@@ -25,7 +25,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/login", "/signup", "/user",
-                                "/h2-console/**", "/static/**",
+                                 "/static/**",
                                 "/css/**", "/js/**", "/images/**"
                         ).permitAll()
                         .anyRequest().authenticated()

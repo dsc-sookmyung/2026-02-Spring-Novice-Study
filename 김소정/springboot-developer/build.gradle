@@ -2,13 +2,16 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.0'
     id 'io.spring.dependency-management' version '1.1.0'
+    id 'org.jetbrains.kotlin.jvm'
+    id "org.jetbrains.kotlin.plugin.jpa" version '2.4.10'
+    id "org.jetbrains.kotlin.plugin.lombok" version '2.4.10'
+    id "org.jetbrains.kotlin.plugin.spring" version '2.4.10'
 }
 
 group = 'me.sojung'
 version = '1.0'
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
 }
 
 repositories {
@@ -31,8 +34,18 @@ dependencies {
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
     // 스프링 시큐리티를 테스트하기 위한 의존성 추가
     testImplementation 'org.springframework.security:spring-security-test'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.projectlombok:lombok'
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'     // 자바 JWT 라이브러리
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'  // XML 문서와 Java 객체 간 매핑 자동화
+    // OAuth2를 사용하기 위한 스타터 추가
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 }
 
 test {
     useJUnitPlatform()
+}
+kotlin {
+    jvmToolchain(17)
 }

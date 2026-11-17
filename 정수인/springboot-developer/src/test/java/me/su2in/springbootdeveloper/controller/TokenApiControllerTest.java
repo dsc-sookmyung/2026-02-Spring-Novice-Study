@@ -1,6 +1,7 @@
+
 package me.su2in.springbootdeveloper.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.Cookie;
 import me.su2in.springbootdeveloper.config.jwt.JwtFactory;
 import me.su2in.springbootdeveloper.config.jwt.JwtProperties;
 import me.su2in.springbootdeveloper.domain.RefreshToken;
@@ -13,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -30,9 +30,6 @@ class TokenApiControllerTest {
 
     @Autowired
     protected MockMvc mockMvc;
-
-    @Autowired
-    protected ObjectMapper objectMapper;
 
     @Autowired
     private WebApplicationContext context;
@@ -72,14 +69,9 @@ class TokenApiControllerTest {
         refreshTokenRepository.save(new RefreshToken(
                 testUser.getId(), refreshToken));
 
-        // when
-        String requestBody = objectMapper.writeValueAsString(
-                Map.of("refreshToken", refreshToken));
-
-        // then
+        // when & then
         mockMvc.perform(post(url)
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .content(requestBody))
+                        .cookie(new Cookie("refresh_token", refreshToken)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.accessToken").isNotEmpty());
     }

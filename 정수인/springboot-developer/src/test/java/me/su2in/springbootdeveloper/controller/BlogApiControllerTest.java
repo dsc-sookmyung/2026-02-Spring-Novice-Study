@@ -1,4 +1,3 @@
-
 package me.su2in.springbootdeveloper.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -28,6 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@WithMockUser(username = "user")
 class BlogApiControllerTest {
 
     @Autowired
@@ -69,6 +70,7 @@ class BlogApiControllerTest {
         assertThat(articles).hasSize(1);
         assertThat(articles.get(0).getTitle()).isEqualTo(title);
         assertThat(articles.get(0).getContent()).isEqualTo(content);
+        assertThat(articles.get(0).getAuthor()).isEqualTo("user");
     }
 
     // 저장된 모든 블로그 글이 조회되는지 확인
@@ -83,6 +85,7 @@ class BlogApiControllerTest {
         blogRepository.save(Article.builder()
                 .title(title)
                 .content(content)
+                .author("user")
                 .build());
 
         // when
@@ -108,6 +111,7 @@ class BlogApiControllerTest {
         Article savedArticle = blogRepository.save(Article.builder()
                 .title(title)
                 .content(content)
+                .author("user")
                 .build());
 
         // when
@@ -133,6 +137,7 @@ class BlogApiControllerTest {
         Article savedArticle = blogRepository.save(Article.builder()
                 .title(title)
                 .content(content)
+                .author("user")
                 .build());
 
         // when
@@ -157,6 +162,7 @@ class BlogApiControllerTest {
         Article savedArticle = blogRepository.save(Article.builder()
                 .title(title)
                 .content(content)
+                .author("user")
                 .build());
 
         final String newTitle = "new title";

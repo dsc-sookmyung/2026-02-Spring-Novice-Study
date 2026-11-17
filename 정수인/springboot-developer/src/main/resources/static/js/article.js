@@ -1,66 +1,85 @@
-
 const deleteButton = document.getElementById('delete-btn');
 
 if (deleteButton) {
     deleteButton.addEventListener('click', event => {
         let id = document.getElementById('article-id').value;
 
-        fetch(`/api/articles/${id}`, {
-            method: 'DELETE'
-        })
-            .then(() => {
-                alert('삭제가 완료되었습니다.');
-                location.replace('/articles');
-            });
+        function success() {
+            alert('삭제가 완료되었습니다.');
+            location.replace('/articles');
+        }
+
+        function fail() {
+            alert('삭제 실패했습니다.');
+            location.replace('/articles');
+        }
+
+        httpRequest('DELETE', `/api/articles/${id}`, null, success, fail);
     });
 }
 
 // 수정 기능
-// id가 modify-btn인 엘리먼트 조회
 const modifyButton = document.getElementById('modify-btn');
 
 if (modifyButton) {
-    // 수정 버튼 클릭 시 수정 API 요청
     modifyButton.addEventListener('click', event => {
         let params = new URLSearchParams(location.search);
         let id = params.get('id');
 
-        fetch(`/api/articles/${id}`, {
-            method: 'PUT',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                title: document.getElementById('title').value,
-                content: document.getElementById('content').value
-            })
-        })
-            .then(() => {
-                alert('수정이 완료되었습니다.');
-                location.replace(`/articles/${id}`);
-            });
+        let body = JSON.stringify({
+            title: document.getElementById('title').value,
+            content: document.getElementById('content').value
+        });
+
+        function success() {
+            alert('수정이 완료되었습니다.');
+            location.replace(`/articles/${id}`);
+        }
+
+        function fail() {
+            alert('수정 실패했습니다.');
+            location.replace(`/articles/${id}`);
+        }
+
+        httpRequest('PUT', `/api/articles/${id}`, body, success, fail);
     });
 }
-
 
 // 게시글 등록 기능
 const createButton = document.getElementById('create-btn');
 
 if (createButton) {
     createButton.addEventListener('click', event => {
-        fetch('/api/articles', {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                title: document.getElementById('title').value,
-                content: document.getElementById('content').value
-            })
-        })
-            .then(() => {
-                alert('등록 완료되었습니다.');
-                location.replace('/articles');
-            });
+        let body = JSON.stringify({
+            title: document.getElementById('title').value,
+            content: document.getElementById('content').value
+        });
+
+        function success() {
+            alert('등록 완료되었습니다.');
+            location.replace('/articles');
+        }
+
+        function fail() {
+            alert('등록 실패했습니다.');
+            location.replace('/articles');
+        }
+
+        httpRequest('POST', '/api/articles', body, success, fail);
+    });
+}
+
+// 로그아웃 기능
+const logoutButton = document.getElementById('logout-btn');
+
+if (logoutButton) {
+    logoutButton.addEventListener('click', event => {
+        localStorage.removeItem('access_token');
+
+        fetch('/logout', {
+            method: 'GET'
+        }).then(() => {
+            location.replace('/login');
+        });
     });
 }

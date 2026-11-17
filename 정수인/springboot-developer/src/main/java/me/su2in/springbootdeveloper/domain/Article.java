@@ -1,4 +1,3 @@
-
 package me.su2in.springbootdeveloper.domain;
 
 import jakarta.persistence.Column;
@@ -17,7 +16,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
-@EntityListeners(AuditingEntityListener.class) // 추가
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -34,20 +33,24 @@ public class Article {
     @Column(name = "content", nullable = false)
     private String content;
 
-    //게시글 생성 시간
+    @Column(name = "author")
+    private String author;
+
+    // 게시글 생성 시간
     @CreatedDate
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    //게시글 마지막 수정 시간
+    // 게시글 마지막 수정 시간
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     @Builder
-    public Article(String title, String content) {
+    public Article(String title, String content, String author) {
         this.title = title;
         this.content = content;
+        this.author = author;
     }
 
     public void update(String title, String content) {
